@@ -56,7 +56,7 @@ function hideStatus() { document.getElementById('statusContainer').classList.add
 
 async function init() {
     try {
-        currentSession = await ort.InferenceSession.create(`./hebrew_gan_bundled.onnx?v=${Date.now()}`);
+        currentSession = await ort.InferenceSession.create(`./hebrew_gan_bundled_v7.2.4.onnx?v=${Date.now()}`);
         generateWord(); 
     } catch (e) { showStatus("שגיאה בטעינת המודל", "error.png"); }
 }
