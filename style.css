@@ -1,0 +1,156 @@
+/* Color Variables */
+:root {
+    --bg-color: #f4f7f6;
+    --card-bg: #ffffff;
+    --text-main: #2d3748;
+    --border-color: #e2e8f0;
+    --primary: #4299e1;
+    --primary-hover: #3182ce;
+    --canvas-bg: #ffffff;
+    --icon-filter: none; /* Dark icons for light mode */
+    --transition: all 0.3s ease;
+}
+
+/* Dark Mode is now the default in HTML, but we keep the variables here */
+[data-theme="dark"] {
+    --bg-color: #1a202c;
+    --card-bg: #2d3748;
+    --text-main: #f7fafc;
+    --border-color: #4a5568;
+    --primary: #63b3ed;
+    --primary-hover: #4299e1;
+    --canvas-bg: #cbd5e0; 
+    --icon-filter: invert(1); /* Turns black icons white for dark mode */
+}
+
+/* Global Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    transition: var(--transition);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 20px;
+}
+
+.container { width: 100%; max-width: 800px; display: flex; flex-direction: column; gap: 20px; }
+
+.card {
+    background: var(--card-bg);
+    padding: 20px 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-color);
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+}
+
+.output-card {
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    overflow-x: auto;
+}
+
+.card h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    align-self: flex-start;
+    width: 100%;
+}
+
+/* Inputs & Buttons */
+.input-group { display: flex; gap: 10px; margin-bottom: 20px; }
+.action-buttons { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
+
+input[type="text"] {
+    flex-grow: 1;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-color);
+    color: var(--text-main);
+    font-size: 1.2rem;
+}
+
+/* Icon Buttons Setup */
+button, label.icon-only {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.icon-only {
+    width: 50px;
+    height: 50px;
+    padding: 0;
+}
+
+.icon-only img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+/* Theme specific icon inversions */
+.secondary-btn img, .icon-btn img {
+    filter: var(--icon-filter);
+}
+.primary-btn img {
+    filter: invert(1); /* Primary button is blue, so icon should always be white */
+}
+
+.primary-btn { background: var(--primary); }
+.primary-btn:hover { background: var(--primary-hover); }
+
+.secondary-btn { background: var(--bg-color); border: 1px solid var(--border-color); }
+.secondary-btn:hover { border-color: var(--primary); }
+
+.icon-btn { background: transparent; padding: 10px; }
+.icon-btn img { width: 28px; height: 28px; }
+
+/* Status Messages */
+.status-msg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+}
+.status-msg.hidden { display: none; }
+.status-msg img { width: 20px; height: 20px; filter: var(--icon-filter); }
+
+/* Canvas Animation */
+canvas {
+    background-color: var(--canvas-bg);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transform: scale(1.3);
+    transform-origin: center;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+canvas.loaded { opacity: 1; }

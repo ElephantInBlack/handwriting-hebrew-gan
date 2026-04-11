@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מחולל כתב יד בזמן אמת</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    
+    <link rel="stylesheet" href="style.css?v=4">
+</head>
+<body>
+    <div class="header">
+        <div>
+            <h1 style="margin-bottom: 5px;">מחולל כתב יד בזמן אמת</h1>
+            <p style="margin-top: 0; font-size: 1.1rem; opacity: 0.8;">מודל cW-GAN (GP) כחלק מפרויקט למידת מכונה - יואב גראד</p>
+        </div>
+        <button id="themeToggle" class="icon-btn" title="החלף בהירות">
+            <img src="assets/light-mode-alt.png" alt="Light Mode">
+        </button>
+    </div>
+    
+    <div class="container">
+        <div class="card">
+            <h3>קלט - מה לכתוב?</h3>
+            <div class="input-group">
+                <input type="text" id="textInput" placeholder='לדוגמה: "שלום עולם"...' value="שלום עולם">
+                <button class="primary-btn icon-only" onclick="generateWord()" title="צייר כתב יד">
+                    <img src="assets/write.png" alt="Generate">
+                </button>
+            </div>
+            
+            <div class="action-buttons">
+
+
+                <button class="secondary-btn icon-only" onclick="refreshSeed()" title="שנה סגנון כתב (Seed)">
+                    <img src="assets/rotate-right.png" alt="Refresh Seed">
+                </button>
+
+                <button class="secondary-btn icon-only" onclick="toggleInvert()" title="הפוך צבעים">
+                    <img src="assets/invert.png" alt="Invert Colors">
+                </button>
+
+                <label for="imageInput" class="secondary-btn icon-only" title="חלץ טקסט מתמונה (OCR)">
+                    <img src="assets/picture.png" alt="Upload Image">
+                </label>
+                <input type="file" id="imageInput" accept="image/*" style="display:none;" onchange="processImage()">
+                
+                <button id="debugBtn" class="secondary-btn icon-only" onclick="toggleDebug()" title="מצב דיבאג">
+                    <img src="assets/debug.png" alt="Debug Mode">
+                </button>
+                <button class="secondary-btn icon-only" onclick="loadRandomQuote()" title="תכתוב ציטוט אקראי">
+                    <img src="assets/quote-right.png" alt="Random Quote">
+                </button>
+                <button class="secondary-btn icon-only" onclick="toggleCurve()" title="הפעל/כבה עיבוד תמונה (Curve)">
+                    <img src="assets/curve.png" alt="Toggle Curve">
+                </button>
+            </div>
+            
+            <div id="statusContainer" class="status-msg hidden">
+                <img id="statusIcon" src="" alt="Status">
+                <span id="statusText"></span>
+            </div>
+        </div>
+
+        <div class="card output-card">
+            <h3>פלט - מה המודל כתב</h3>
+            
+            <div id="canvasWrapper" style="position: relative; display: inline-block;">
+                <canvas id="outputCanvas" height="64"></canvas>
+                <div id="debugOverlay" style="position: absolute; top: -30px; left: 0; width: 100%; height: 100%; pointer-events: none;"></div>
+            </div>
+            
+        </div>
+    </div>
+
+    <script src="postprocessing.js?v=28"></script>
+    <script src="app.js?v=28"></script>
+</body>
+</html>
