@@ -146,7 +146,7 @@ function App() {
     useEffect(() => {
         async function initModel() {
             try {
-                const sess = await ort.InferenceSession.create(`./hebrew_gan_bundled_V7.2.8.onnx?v=${Date.now()}`);
+                const sess = await ort.InferenceSession.create(`./hebrew_gan_int8_V7.2.8.onnx`);
                 setSession(sess);
                 setIsModelLoaded(true);
             } catch (e) {
