@@ -1,32 +1,43 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl" data-theme="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>מחולל כתב יד בזמן אמת - React</title>
-    
-    <!-- React & ReactDOM (Development versions via CDN) -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    
+
+    <!-- Start the two large inference downloads as early and in parallel as possible. -->
+    <link rel="preload" href="./hebrew_gan_int8_V7.2.8.onnx" as="fetch" crossorigin="anonymous">
+    <link rel="preload"
+        href="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.27.0/dist/ort-wasm-simd-threaded.wasm"
+        as="fetch" type="application/wasm" crossorigin="anonymous">
+
+    <!-- Exact dependency versions: upgrade only after the browser smoke test passes. -->
+    <script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+
     <!-- Babel standalone for in-browser JSX compilation -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
+    <script src="https://unpkg.com/@babel/standalone@7.28.5/babel.min.js"></script>
+
     <!-- External Dependencies -->
-    <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
-    
+    <!-- WASM-only entry is much smaller than the all-provider browser bundle. -->
+    <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.27.0/dist/ort.wasm.min.js"></script>
+
     <link rel="stylesheet" href="style.css?v=5">
-    
+
     <!-- Preconnect to Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Inter:wght@400;600;800&family=Assistant:wght@400;600;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Inter:wght@400;600;800&family=Assistant:wght@400;600;800&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
     <div id="root"></div>
-    
+
     <!-- Application Logic -->
-    <script type="text/babel" src="app.jsx"></script>
+    <script type="text/babel" data-type="module" src="app.jsx"></script>
 </body>
+
 </html>
